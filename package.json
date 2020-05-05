@@ -1,0 +1,29 @@
+{
+  "name": "lib-keypair",
+  "version": "1.0.0",
+  "description": "js library provides keys management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makkii-dev/lib-js-keys.git"
+  },
+  "keywords": [
+    "js",
+    "key"
+  ],
+  "author": "Chris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/makkii-dev/lib-js-keys/issues"
+  },
+  "homepage": "https://github.com/makkii-dev/lib-js-keys#readme",
+  "dependencies": {
+    "aion-rlp": "0.0.1",
+    "blake2b": "^2.1.3",
+    "bn.js": "^5.1.1",
+    "tweetnacl": "^1.0.3"
+  }
+}
