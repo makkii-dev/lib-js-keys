@@ -26,7 +26,7 @@ function from_private_key(private_key) {
         public_key: Buffer.from(pair.publicKey).toString('hex'), 
         address: Buffer.from(hash).toString('hex')
     }
-    keypair.sign = function(tx){
+    keypair.sign = (tx) => {
 
         let array = [
             tx.nonce,
@@ -53,7 +53,48 @@ function from_private_key(private_key) {
 }
 
 /**
- * Unsign raw transaction
+ * Static sign raw transaction
+ * 
+ * @param {string} signed 
+ * @param {string} private_key // 64 hex characters
+ * @param {string} public_key  // 64 hex characters
+ * 
+ * @return {
+    *      {BN} nonce,
+    *      {string} to,
+    *      {BN} amount,
+    *      {string} data,
+    *      {number} timestamp
+    *      {BN} gas_limit,
+    *      {BN} gas_price,
+    *      {BN} type
+    * }
+    */
+function sign(tx, private_key, public_key) {
+    let array = [
+        tx.nonce,
+        tx.to,
+        tx.amount,
+        tx.data,
+        tx.timestamp,
+        new rlp.AionLong(tx.gasLimit),
+        new rlp.AionLong(tx.gasPrice),
+        new rlp.AionLong(tx.type)
+    ]
+    let tx_rlped = rlp.encode(array)
+    let digest = blake2b(32).update(tx_rlped).digest()
+    let key = Buffer.from(private_key + public_key, 'hex')
+    let signature_buffer = Buffer.from(nacl.sign.detached(digest, key))
+    signature_buffer = Buffer.concat([
+        Buffer.from(public_key, 'hex'), 
+        signature_buffer
+    ])
+    let signature = signature_buffer.toString('hex')
+    return rlp.encode(rlp.decode(tx_rlped).concat(signature)).toString('hex')
+}
+
+/**
+ * Static unsign raw transaction
  * 
  * @param {string} signed 
  * 
