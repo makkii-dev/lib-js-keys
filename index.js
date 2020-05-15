@@ -31,7 +31,7 @@ function from_private_key(type, private_key){
  */
 function sign(type, tx, private_key, public_key){
     switch(type){
-        case 'aion': return aion.sign(type, tx, private_key, public_key)
+        case 'aion': return aion.sign(tx, private_key, public_key)
         default: return {}
     }
 }
