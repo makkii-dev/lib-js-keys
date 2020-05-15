@@ -23,13 +23,15 @@ function from_private_key(type, private_key){
  * Sign a raw transaction
  * 
  * @param {string} type 
- * @param {string} tx 
+ * @param {string} tx
+ * @param {string} private_key
+ * @param {string} public_key
  * 
- * @return {object}
+ * @return {string}
  */
-function sign(type, tx){
+function sign(type, tx, private_key, public_key){
     switch(type){
-        case 'aion': return aion.sign(tx)
+        case 'aion': return aion.sign(type, tx, private_key, public_key)
         default: return {}
     }
 }
