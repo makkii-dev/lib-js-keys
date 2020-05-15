@@ -20,6 +20,21 @@ function from_private_key(type, private_key){
 }
 
 /**
+ * Sign a raw transaction
+ * 
+ * @param {string} type 
+ * @param {string} tx 
+ * 
+ * @return {object}
+ */
+function sign(type, tx){
+    switch(type){
+        case 'aion': return aion.sign(tx)
+        default: return {}
+    }
+}
+
+/**
  * Unsign a raw transaction
  * 
  * @param {string} type 
@@ -36,5 +51,6 @@ function unsign(type, tx){
 
 module.exports = {
     from_private_key,
+    sign,
     unsign
 }
