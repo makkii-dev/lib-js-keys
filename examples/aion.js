@@ -7,7 +7,8 @@ let aion = keypair.from_private_key(
     'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 ) 
 
-const signed = aion.sign({
+const sign = aion.sign
+const signed = sign({
     nonce: new BN(10),
     to: '0xa000000000000000000000000000000000000000000000000000000000000000',
     data: '',

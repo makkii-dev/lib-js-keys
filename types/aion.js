@@ -40,10 +40,10 @@ function from_private_key(private_key) {
         ]
         let tx_rlped = rlp.encode(array)
         let digest = blake2b(32).update(tx_rlped).digest()
-        let key = Buffer.from(this.private_key + this.public_key, 'hex')
+        let key = Buffer.from(keypair.private_key + keypair.public_key, 'hex')
         let signature_buffer = Buffer.from(nacl.sign.detached(digest, key))
         signature_buffer = Buffer.concat([
-            Buffer.from(this.public_key, 'hex'), 
+            Buffer.from(keypair.public_key, 'hex'), 
             signature_buffer
         ])
         let signature = signature_buffer.toString('hex')
@@ -134,5 +134,6 @@ function unsign(signed){
 
 module.exports = {
     from_private_key,
+    sign,
     unsign
 }
